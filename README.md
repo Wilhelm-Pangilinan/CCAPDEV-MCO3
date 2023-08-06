@@ -71,6 +71,7 @@ Feel free to use these accounts to explore and test the Lab Reservation System.
 
 ## Authors
 
+### Group 9
 * **Dela Cruz, Sebastien** 
 * **Herce, Dominic** 
 * **Jaime, Luis** 
