@@ -13,43 +13,45 @@ const Laboratory = require('../../models/Laboratory');
 profileRouter.use( urlencoded({extended:true}) );
 
 profileRouter.get('/profile', async (req, res) => {
+    try { 
+        const currentStudent = req.session.student;
 
-    // - Redirect to login page if the student is not found in the session
-    if( !req.session.student ) {
-        return res.redirect('/login'); 
-    }
+        if( !req.session.authorized ) {
+            return res.status(401).redirect('/login'); 
+        }
 
-    var student;
-    const id = req.query['studentID'];
-    if( id ) {
-        student = await Student.findOne({ id });
-    } else {
-        student = req.session.student 
-    }
+        var student;
+        const id = req.query['studentID'];
+        if( id ) {
+            student = await Student.findOne({ id });
+        } else {
+            student = currentStudent;
+        }
+        
+        // - Retrieve the student document from the database
+        student = await Student.findOne( {id: student.id} );
 
-    // - Retrieve the student document from the database
-    student = await Student.findOne( {id: student.id} );
+        // - Extract the reservations data from the student
+        const reservationsData = [];
+        for( const reservationRef of student.reservationsRef ) {
+            const reservation = await Reservation.findById( reservationRef );
 
-    // - Extract the reservations data from the student
-    const reservationsData = [];
-    for( const reservationRef of student.reservationsRef ) {
-        const reservation = await Reservation.findById( reservationRef );
+            // - Extract the laboratory name and image url from the reservations
+            const laboratory = await Laboratory.findById( reservation.labRef );
 
-        // - Extract the laboratory name and image url from the reservations
-        const laboratory = await Laboratory.findById( reservation.labRef );
+            // - Create an object containing both reservation and laboratory data
+            const reservationWithLabData = {
+                data: reservation,
+                imageURL: laboratory.imageURL,
+            };
+            reservationsData.push(reservationWithLabData);
+        }
 
-        // - Create an object containing both reservation and laboratory data
-        const reservationWithLabData = {
-            data: reservation,
-            imageURL: laboratory.imageURL,
-        };
-        reservationsData.push(reservationWithLabData);
-    }
-
-    reservationsData.sort((a, b) => new Date(a.data.requestDate) - new Date(b.data.requestDate));
-
-    req.session.student = student;
-    res.render('profile', { student: student, reservationsData: reservationsData });
+        reservationsData.sort((a, b) => new Date(a.data.requestDate) - new Date(b.data.requestDate));
+        res.render('profile', { student: student, reservationsData: reservationsData });
+    } catch( error ) {
+        console.log( error );
+    } 
 });
 
 /** 

@@ -13,8 +13,8 @@ laboratoryRouter.use( urlencoded({extended:true}) );
 laboratoryRouter.get('/laboratory', async (req, res) => {
 
     // - Redirect to login page if the student is not found in the session
-    if( !req.session.student ) {
-        return res.redirect('/login'); 
+    if( !req.session.authorized ) {
+        return res.status(401).redirect('/login'); 
     }
 
     try {

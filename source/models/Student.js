@@ -38,7 +38,6 @@ studentSchema.pre('save', async function(next) {
     if( !user.isModified('password')) {
         return next();
     }
-
     try {
         const salt = await bcrypt.genSalt(15);
         const hash = await bcrypt.hash(user.password, salt);
@@ -53,7 +52,6 @@ studentSchema.pre('save', async function(next) {
 studentSchema.method('comparePassword', async function(passwordInput) {
     return await bcrypt.compare( passwordInput, this.password );
 });
-
 
 const Student = mongoose.model('Student', studentSchema);
 module.exports = Student;

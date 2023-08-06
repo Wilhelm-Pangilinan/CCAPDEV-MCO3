@@ -30,11 +30,11 @@
                 <div class = "input-container">
                     <div class = "date-input-box"> 
                         <label class = "input-label"> Select date: </label>
-                        <input type = "date" id = "date-input" name = "date" class = "custom-date-input" required min = "2023-07-24" max = "2023-07-31">
+                        <input type = "date" id = "date-input" name = "date" class = "custom-date-input">
                     </div>
                     <div class = "anonymous-input-box"> 
                         <label class = "input-label"> Anonymous: </label>
-                        <input type = "checkbox" id = "anonymous-checkbox" name = "isAnonymous" checked>
+                        <input type = "checkbox" id = "anonymous-checkbox" value = "true">
                     </div>
                     <div class = "selected-seat-label"> 
                         <label class = "input-label" id = "seat-number-label"> </label>
@@ -55,17 +55,18 @@
         </div>
     </div>  
 
-    <div id = "laboratory-data" laboratory-data = '<%=JSON.stringify(laboratoryData[0].laboratory)%>'> </div>
-    <div id = "reservations-data" reservations-data = '<%= JSON.stringify(laboratoryData[0].reservations) %>'></div>
-
     <script>
+        const laboratoryData = `<%- JSON.stringify(laboratoryData[0].laboratory) %>`;
+        const reservationsData = `<%- JSON.stringify(laboratoryData[0].reservations) %>`;
+        const studentReservationsData = `<%- JSON.stringify(studentReservationsData) %>`;
+        var currentDay = new Date();
+        currentDay.setDate(currentDay.getDate()+1);
+
         flatpickr( "#date-input", {
             dateFormat: "Y-m-d", 
-            minDate: "2023-07-24", 
-            maxDate: "2023-07-31", 
             altInput: true, 
             altFormat: "F j, Y", 
-            defaultDate: "2023-07-24",
+            defaultDate: currentDay,
         });
     </script>
 </body> 

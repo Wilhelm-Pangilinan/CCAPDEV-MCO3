@@ -25,8 +25,26 @@ loginRouter.use( urlencoded({extended:true}) );
 
 *********************************************************/
 loginRouter.get( '/login', (req, res) => { 
+    console.log( "Authorized", req.session.authorized );
+    console.log( "RememberMe", req.session.rememberMe );
+
+    if( req.session.authorized && req.session.rememberMe ) {
+        console.log( "Session remembered! Logging in!" );
+        if( req.session.student ) {
+            res.redirect('/dashboard');
+        } else {
+            res.redirect('/technician');
+        }
+    } else {
+        res.render('login'); 
+    }
+});
+
+loginRouter.get( '/logout', (req, res) => {     
+    req.session.destroy();
     res.render('login'); 
 });
+
 
 /* 
     ` POST route to handle the login form submission
@@ -39,21 +57,54 @@ loginRouter.post('/login', async (req, res) => {
         const email = loginData.email;
         const password = loginData.password;
 
-        // - Find the user in the database based on the email
-        const student = await Student.findOne({ email });
+        console.log( "Email Technician:", email.includes("technician") );
 
-        // - Handle invalid credentials
-        if( !student || await student.comparePassword(password) == false ) {
-            return res.status(401).json({ message: 'Invalid credentials'})
-        } 
+        // - Check if the email is for technician
+        if( email.includes("technician") ) {
+            // - Find the technician in the database based on the email
+            const technician = await Technician.findOne({ email });
 
-        req.session.student = student;          // save student to the session
-        console.log( "Login Successful" );      // console message
-        res.redirect('/dashboard');              // redirect to dashboard.ejs
-        console.log( "Session Student:", student );
+            // - Handle invalid credentials
+            if( !technician || await technician.comparePassword(password) == false ) {
+                return res.status(401).json({ message: 'Invalid credentials'})
+            }
 
+            // - If remember me option was checked
+            if( loginData.rememberMe == 'true' ) {
+                req.session.rememberMe = true;
+            } else {
+                req.session.rememberMe = false;
+            }
+
+            req.session.resetMaxAge();              // reset session duration
+            req.session.authorized = true;          // set the user as authenticated
+            req.session.technician = technician;    // save technician to the session
+            res.redirect('/technician');            // redirect to technician.ejs
+            console.log( "Going to technician");
+        } else {
+            // - Find the user in the database based on the email
+            const student = await Student.findOne({ email });
+
+            // - Handle invalid credentials
+            if( !student || await student.comparePassword(password) == false ) {
+                return res.status(401).json({ message: 'Invalid credentials'})
+            } 
+
+            // - If remember me option was checked
+            if( loginData.rememberMe == 'true' ) {
+                req.session.rememberMe = true;
+            } else {
+                req.session.rememberMe = false;
+            }
+
+            req.session.resetMaxAge();              // reset session duration
+            req.session.authorized = true;          // set the user as authenticated
+            req.session.student = student;          // save student to the session
+            console.log( "Login Successful" );      // console message
+            res.redirect('/dashboard');             // redirect to dashboard.ejs
+        }
     } catch( error ) {
-        return res.status(500).json({ error: 'An error occured in the login process. Please try again.' });
+        return res.status(500).json({ message: 'An error occured in the login process. Please try again.' });
     }
 });
 

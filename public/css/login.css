@@ -213,6 +213,22 @@ div.input-box-names input {
 }
 
 /***********************************************
+                   REMEMBER ME BOXE              
+***********************************************/
+#remember-container {
+    text-align: left;
+    position: relative;
+    bottom: 15px;
+    font-size: 18px;
+    color: gray;
+}
+
+.text-error {
+    font-size: 18px;
+    color: rgb(209, 87, 87); 
+}
+
+/***********************************************
                    ERROR BOXES              
 ***********************************************/
 .error-box-container {
@@ -241,6 +257,14 @@ div.input-box-names input {
     height:50px;
     width:308px;
     cursor:pointer;
+}
+
+.btn:hover {
+    background-color: #21c226;
+    background: rgb(29, 143, 33);
+    border: 1px solid rgb(9, 99, 12);
+    border-radius: 3px;
+    transition: 0.3s;
 }
 
 .login-register {

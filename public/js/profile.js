@@ -13,17 +13,15 @@ function navigateToPage(url) {
 
 *********************************************************/  
 function deleteAccount(url, method) {
+    fetch(url, {
+        method: method, 
+    })
+    .catch(error => {
+        console.error('Error during deletion:', error);
+        // Handle the error and display an error message to the user if needed
+    });
 
-  fetch(url, {
-      method: method, 
-  })
-  .catch(error => {
-      console.error('Error during deletion:', error);
-      // Handle the error and display an error message to the user if needed
-  });
-
-  navigateToPage('/login');
-
+    navigateToPage('/login');
 }
 
 

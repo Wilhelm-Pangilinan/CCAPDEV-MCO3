@@ -81,12 +81,14 @@ function createModal(reservation) {
 	var modalBody = document.createElement('div');
 	modalBody.classList.add('modal-body');
 	modalBody.innerHTML = `
-		<span class = "modal-text"> Seat Number: </span> ${reservation.data.seatNumber} <br>
-		<span class = "modal-text"> Date of Reservation: </span> ${formatDate(reservation.data.reservationDate)} <br>
-		<span class = "modal-text"> Time of Reservation: </span> 
-		${reservation.data.startTime}  - ${reservation.data.endTime}
-		<br> <br> 
+		<span class = "modal-text"> Seat Number: ${reservation.data.seatNumber} </span> <br>
+		<span class = "modal-text"> Date of Reservation: ${formatDate(reservation.data.reservationDate)} </span> <br>
+		<span class = "modal-text"> Time of Reservation: ${reservation.data.startTime} - ${reservation.data.endTime} </span> <br> 
+		<span class = "modal-text"> IsAnonymous: ${reservation.data.isAnonymous} </span> <br>
+		
+		<br> 
 		<span class = "modal-text"> Date of Request: </span> ${formatDateDetails(reservation.data.requestDate)} <br>
+		
 	`;
 	
 	console.log( reservation.data.requestDate );

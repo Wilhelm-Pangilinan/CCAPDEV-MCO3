@@ -1,5 +1,6 @@
 // - Modules
 const express = require('express');
+const session = require('../utility/session.js');
 
 // - Routes
 const router = express.Router();
@@ -11,7 +12,7 @@ const reservation = require('./router/reservation-router.js');
 const technician = require('./router/technician-router.js');    
 
 router.get('/', (req, res) => {
-    res.render('login');
+    res.redirect('login');
 });
 
 router.use(login);

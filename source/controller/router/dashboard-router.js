@@ -16,8 +16,8 @@ dashboardRouter.get('/dashboard', async (req, res) => {
         var student = req.session.student;
 
         // - Redirect to login page if the student is not found in the session
-        if( !student ) {
-            return res.redirect('/login'); 
+        if( !req.session.authorized ) {
+            return res.status(401).redirect('/login'); 
         }
 
         // - Retrieve the student document from the database
@@ -39,14 +39,13 @@ dashboardRouter.get('/dashboard', async (req, res) => {
             reservationsData.push(reservationWithLabData);
         }
 
-        reservationsData.sort((a, b) => new Date(a.data.requestDate) - new Date(b.data.requestDate));
+        reservationsData.sort((a, b) => new Date(a.data.reservationDate) - new Date(b.data.reservationDate));
 
         req.session.student = student;
-        res.render('dashboard', { reservationsData: reservationsData });
-
+        res.status(200).render( 'dashboard', { reservationsData: reservationsData });
     } catch( error ) {
-        console.error( "Error fetching reservations: ", error );
-        res.render('login');
+        console.log( "Error fetching reservations: ", error );
+        res.status(500).render('login');
     }
 });
 

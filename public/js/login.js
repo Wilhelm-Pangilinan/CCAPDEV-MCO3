@@ -36,6 +36,15 @@ const loginPassword = document.getElementById("login-password");
 const loginButton = document.getElementById("login-button");
 const loginErrorBox = document.getElementById("login-error-box");
 const loginErrorText = document.getElementById("login-error-text");
+const rememberBox = document.getElementById("remember-checkbox");
+
+rememberBox.addEventListener('change', function() {
+    if( this.checked ) {
+        this.value = true;
+    } else {
+        this.value = false;
+    }
+});
 
 /** 
     ` Attaches a `click` event to `#login-button`. The code communicates
@@ -55,7 +64,8 @@ loginButton?.addEventListener( "click", async function(e) {
         // - Store login form data in JSON format
         const loginData = {
             email: loginEmail.value,
-            password: loginPassword.value
+            password: loginPassword.value,
+            rememberMe: rememberBox.value
         }
 
         const response = await fetch( 'login', {
@@ -66,7 +76,13 @@ loginButton?.addEventListener( "click", async function(e) {
 
         // - On success, go to dashboard
         if( response.ok ) {
-            window.location.href = '/dashboard'; 
+            if( loginEmail.value.includes("technician") ) {
+                window.location.href = "/technician";
+            } else {
+                window.location.href = "/dashboard";
+            }
+        } else if( response.status === 500 ) {
+            loginErrorText.textContent = response.message;
         } else {
             displayLoginInputError();
         }
@@ -75,9 +91,12 @@ loginButton?.addEventListener( "click", async function(e) {
     }
 });
 
-document.querySelectorAll('#login-form input')
-
-// - Function 
+/** 
+    ` This function is to used when the user clicks the `#login-button`. It 
+    checks the validity of each input, such as empty fields and invalid format.
+    If any errors are found, it makes the `#login-error-box` visible before it 
+    displays the designated error message.
+*/
 function displayLoginInputError() {
     loginErrorBox.style.display = "block";
     var errorMessage;
@@ -127,7 +146,6 @@ const registerErrorText = document.getElementById("register-error-text");
 */
 registerButton?.addEventListener( "click", async function(e) {
     e.preventDefault();
-
     try {
         // - Store registration form data in JSON format
         const registrationData = {
@@ -140,7 +158,7 @@ registerButton?.addEventListener( "click", async function(e) {
             password: registerPassword.value
         }
 
-        if( areInputFieldsFilled("register-form")) {
+        if( areInputFieldsFilled("register-form") ) {
             // - Send registration data to the server
             const response = await fetch( 'register', {
                 method: 'POST',
@@ -150,9 +168,11 @@ registerButton?.addEventListener( "click", async function(e) {
 
             // - On success, refresh the loging page
             if( response.ok ) {
+                alert( "Registration successful" ); 
                 location.reload();
+            } else if( response.status === 500 ) {
+                registerErrorText.textContent = errorMessage;
             } else {
-                // - Display error message
                 displayRegisterInputError();
             }
         } else {
@@ -164,7 +184,12 @@ registerButton?.addEventListener( "click", async function(e) {
     }
 });
 
-// - Function 
+/** 
+    ` This function is to used when the user clicks the `#register-button`. It 
+    checks the validity of each input, such as empty fields and invalid format.
+    If any errors are found, it makes the `#register-error-box` visible and 
+    displays the designated error message.
+*/
 function displayRegisterInputError() {
     // - Make the error box visible
     registerErrorBox.style.display = "block";
@@ -194,7 +219,7 @@ function displayRegisterInputError() {
         errorMessage = "Error: ID must be 8-digits"
     }   
     
-    // - Email and Password
+    // - Email and password
     else if( !registerEmail.value ) {
         registerEmail.select();
         errorMessage = "Error: Please type your email address";
@@ -211,16 +236,25 @@ function displayRegisterInputError() {
     registerErrorText.textContent = errorMessage;
 }
 
+/** 
+    ` Checks if the input contains only letters and spaces. 
+*/
 function isTextOnly( input ) {
     const regex = /^[A-Za-z ]+$/;
     return regex.test(input);
 }
 
+/** 
+    ` Checks if the input is a valid 8-digit number
+*/
 function isValidIdNumber( input ) {
     const regex = /^\d{8}$/;
     return regex.test( input );
 }
 
+/** 
+    ` Checks if all input fields within a given form are filled.
+*/
 function areInputFieldsFilled( formId ) {
     // - Get all the input elements within the form
     const inputElements = document.querySelectorAll(`#${formId} input`);

@@ -13,25 +13,24 @@ reservationRouter.use( urlencoded({extended:true}) );
 
 // - GET route for rendering the reservation page
 reservationRouter.get('/reservation', async (req, res) => {
-
-    // - Redirect to login page if the student is not found in the session
-    if( !req.session.student ) {
-        return res.redirect('/login'); 
-    }
-    
-    const name = req.query['lab'];
-    const laboratory = await Laboratory.findOne({ name });
-
-    if( !laboratory ) {
-        return res.status(404).send('Laboratory not found');
-    }
-
-    req.session.laboratory = laboratory;
-
     try {
+        // - Redirect to login page if the student is not found in the session
+        if( !req.session.authorized ) {
+            return res.status(401).redirect('/login'); 
+        }
+        
+        // - Search for the laboratory
+        const name = req.query['lab'];
+        const laboratory = await Laboratory.findOne({ name });
+
+        if( !laboratory ) {
+            return res.status(404).send('Laboratory not found');
+        }
+
+        // - Retrieve all the reservations data of the laboratory
         const reservationsData = [];
         await Promise.all(
-            laboratory.reservationsRef.map( async( reservationRef ) => {
+            laboratory.reservationsRef.map( async(reservationRef) => {
                 const reservation = await Reservation.findById(reservationRef);
                 reservationsData.push(reservation);
             })
@@ -42,7 +41,19 @@ reservationRouter.get('/reservation', async (req, res) => {
             reservations: reservationsData,
         }];
 
-        res.render('reservation', { laboratoryData: laboratoryData });
+        // - Retrieve all the reservations data of the student
+        const student = req.session.student;
+        const studentReservationsData = [];
+        await Promise.all(
+            student.reservationsRef.map( async(reservationRef) => {
+                const reservation = await Reservation.findById(reservationRef);
+                studentReservationsData.push(reservation);
+            })
+        );
+
+        // - Save laboratory to session
+        req.session.laboratory = laboratory;
+        res.render('reservation', { laboratoryData: laboratoryData, studentReservationsData: studentReservationsData } );
     } catch( err ) {
         console.error("Error fetching reservations:", err);
         return res.status(500).send('Error fetching reservations');
@@ -76,142 +87,13 @@ reservationRouter.post('/reserve', async (req, res) => {
             }
         }
 
-        for( const timeSlot of timeSlots ) {
-            try {
-                const reservationEndTime = calculateEndTime(timeSlot.startTime);
+        // - Merge overlapping functions
+        await mergeReservations( laboratory, student, timeSlots, date, isAnonymousValue );
 
-                // - Check if the new reservation overlaps with an existing reservation
-                const existingReservation = await Reservation.findOne( {
-                    $and: [
-                        { labName: laboratory.name },
-                        { studentID: student.id },
-                        { endTime: timeSlot.startTime },
-                        { seatNumber: timeSlot.seatNumber },
-                        { reservationDate: date }
-                    ]
-                });
-
-                if( existingReservation ) {
-                    existingReservation.endTime = reservationEndTime;
-                    existingReservation.requestDate = new Date();
-                    await existingReservation.save();
-
-                    /*
-                        e.g. existingReservation: 0930-1100, olderReservation: 0730-0930, 
-                             oldReservation updates to 0730-1100
-                    */
-                    const olderReservation = await Reservation.findOne( {
-                        $and: [
-                            { labName: laboratory.name },
-                            { studentID: student.id },
-                            { endTime: existingReservation.startTime },
-                            { seatNumber: existingReservation.seatNumber },
-                            { reservationDate: date }
-                        ]
-                    });
-
-                    if( olderReservation ) {
-                        olderReservation.endTime = existingReservation.endTime;
-                        olderReservation.requestDate = new Date();
-                        await olderReservation.save();
-
-                        // - Remove the previous reservatoin reference from laboratory
-                        await Laboratory.findByIdAndUpdate( 
-                            laboratory._id,
-                            { $pull: { reservationsRef: existingReservation._id } },
-                            { new: true }
-                        )
-
-                        // - Remove the previous reservation reference from student
-                        await Student.findByIdAndUpdate( 
-                            student._id,
-                            { $pull: { reservationsRef: existingReservation._id } },
-                            { new: true }
-                        )
-
-                        // - Remove the previous reservation document from database
-                        await Reservation.deleteOne({ _id: existingReservation._id });
-                    }
-
-                    /*
-                        e.g. existingReservation: 0730-0930, newerReservation updates to 0930-1100
-                             existingReservation updates to 0730-1100
-                    */
-                    const newerReservation = await Reservation.findOne( {
-                        $and: [
-                            { labName: laboratory.name },
-                            { studentID: student.id },
-                            { startTime: existingReservation.endTime },
-                            { seatNumber: existingReservation.seatNumber },
-                            { reservationDate: date }
-                        ]
-                    });
-
-                    if( newerReservation ) {
-                        existingReservation.endTime = newerReservation.endTime;
-                        existingReservation.requestDate = new Date();
-                        await existingReservation.save();
-                        await Laboratory.findByIdAndUpdate( 
-                            laboratory._id,
-                            { $pull: { reservationsRef: newerReservation._id }},
-                            { new: true }
-                        )
-                        await Student.findByIdAndUpdate( 
-                            student._id,
-                            { $pull: { reservationsRef: newerReservation._id }},
-                            { new: true }
-                        )
-                        await Reservation.deleteOne({ _id: newerReservation._id });
-                    }
-                } else {
-                    const reservation = new Reservation({
-                        labName: laboratory.name,
-                        labRef: laboratory._id,
-                        studentID: student.id,
-                        studentRef: student._id,
-                        seatNumber: timeSlot.seatNumber,
-                        reservationDate: date,
-                        startTime: timeSlot.startTime,
-                        endTime: calculateEndTime(timeSlot.startTime),
-                        requestDate: new Date(),
-                        isAnonymous: isAnonymousValue
-                    });
-
-                    await reservation.save();
-
-                    if( reservation ) {
-                        console.log( "Reservation added in reservations collection." );
-                        const reservationIdString = reservation._id.toString();
-    
-                        // - Add the reservation reference to the Laboratory document if not already present
-                        if( !laboratory.reservationsRef.includes(reservationIdString) ) {
-                            laboratory.reservationsRef.push(reservation._id);
-                            await laboratory.save();
-                            console.log( "Reservation added in", laboratory.name );
-                        } else {
-                            console.log( "Reservation already referenced in laboratory" );
-                        }
-    
-                        // - Add the reservation reference to the Student document if not already present
-                        if( !student.reservationsRef.includes(reservationIdString) ) {
-                            student.reservationsRef.push(reservation._id);
-                            await student.save();
-                            console.log( "Reservation added in", student.name );
-                        } else {
-                            console.log( "Reservation already referenced in student" );
-                        }
-                    }
-                }
-            } catch( error ) {
-                    console.log( error );
-            }
-        }
-
-        // - Retrieve the session data
+        // - Update the session data
         req.session.laboratory = laboratory;
         req.session.student = student;
-
-        res.redirect('/laboratory');
+        res.status(201).redirect('/dashboard');
 
     } catch( err ) {
         return res.status(500).send('Error creating reservation');
@@ -241,6 +123,139 @@ function calculateEndTime(startTime) {
     } catch( error ) {
         console.log( error );
     }     
+}
+
+async function mergeReservations( laboratory, student, timeSlots, date, isAnonymousValue ) {
+    for( const timeSlot of timeSlots ) {
+        try {
+            const reservationEndTime = calculateEndTime(timeSlot.startTime);
+
+            // - Check if the new reservation overlaps with an existing reservation
+            const existingReservation = await Reservation.findOne( {
+                $and: [
+                    { labName: laboratory.name },
+                    { studentID: student.id },
+                    { endTime: timeSlot.startTime },
+                    { seatNumber: timeSlot.seatNumber },
+                    { reservationDate: date }
+                ]
+            });
+
+            if( existingReservation ) {
+                existingReservation.endTime = reservationEndTime;
+                existingReservation.requestDate = new Date();
+                await existingReservation.save();
+
+                /*
+                    e.g. existingReservation: 0930-1100, olderReservation: 0730-0930, 
+                         oldReservation updates to 0730-1100
+                */
+                const olderReservation = await Reservation.findOne( {
+                    $and: [
+                        { labName: laboratory.name },
+                        { studentID: student.id },
+                        { endTime: existingReservation.startTime },
+                        { seatNumber: existingReservation.seatNumber },
+                        { reservationDate: date }
+                    ]
+                });
+
+                if( olderReservation ) {
+                    olderReservation.endTime = existingReservation.endTime;
+                    olderReservation.requestDate = new Date();
+                    await olderReservation.save();
+
+                    // - Remove the previous reservatoin reference from laboratory
+                    await Laboratory.findByIdAndUpdate( 
+                        laboratory._id,
+                        { $pull: { reservationsRef: existingReservation._id } },
+                        { new: true }
+                    )
+
+                    // - Remove the previous reservation reference from student
+                    await Student.findByIdAndUpdate( 
+                        student._id,
+                        { $pull: { reservationsRef: existingReservation._id } },
+                        { new: true }
+                    )
+
+                    // - Remove the previous reservation document from database
+                    await Reservation.deleteOne({ _id: existingReservation._id });
+                }
+
+                /*
+                    e.g. existingReservation: 0730-0930, newerReservation updates to 0930-1100
+                         existingReservation updates to 0730-1100
+                */
+                const newerReservation = await Reservation.findOne( {
+                    $and: [
+                        { labName: laboratory.name },
+                        { studentID: student.id },
+                        { startTime: existingReservation.endTime },
+                        { seatNumber: existingReservation.seatNumber },
+                        { reservationDate: date }
+                    ]
+                });
+
+                if( newerReservation ) {
+                    existingReservation.endTime = newerReservation.endTime;
+                    existingReservation.requestDate = new Date();
+                    await existingReservation.save();
+                    await Laboratory.findByIdAndUpdate( 
+                        laboratory._id,
+                        { $pull: { reservationsRef: newerReservation._id }},
+                        { new: true }
+                    )
+                    await Student.findByIdAndUpdate( 
+                        student._id,
+                        { $pull: { reservationsRef: newerReservation._id }},
+                        { new: true }
+                    )
+                    await Reservation.deleteOne({ _id: newerReservation._id });
+                }
+            } else {
+                const reservation = new Reservation({
+                    labName: laboratory.name,
+                    labRef: laboratory._id,
+                    studentID: student.id,
+                    studentRef: student._id,
+                    seatNumber: timeSlot.seatNumber,
+                    reservationDate: date,
+                    startTime: timeSlot.startTime,
+                    endTime: calculateEndTime(timeSlot.startTime),
+                    requestDate: new Date(),
+                    isAnonymous: isAnonymousValue
+                });
+
+                await reservation.save();
+
+                if( reservation ) {
+                    console.log( "Reservation added in reservations collection." );
+                    const reservationIdString = reservation._id.toString();
+
+                    // - Add the reservation reference to the Laboratory document if not already present
+                    if( !laboratory.reservationsRef.includes(reservationIdString) ) {
+                        laboratory.reservationsRef.push(reservation._id);
+                        await laboratory.save();
+                        console.log( "Reservation added in", laboratory.name );
+                    } else {
+                        console.log( "Reservation already referenced in laboratory" );
+                    }
+
+                    // - Add the reservation reference to the Student document if not already present
+                    if( !student.reservationsRef.includes(reservationIdString) ) {
+                        student.reservationsRef.push(reservation._id);
+                        await student.save();
+                        console.log( "Reservation added in", student.name );
+                    } else {
+                        console.log( "Reservation already referenced in student" );
+                    }
+                }
+            }
+        } catch( error ) {
+            console.log( error );
+        }
+    }
 }
   
 module.exports = reservationRouter; 
