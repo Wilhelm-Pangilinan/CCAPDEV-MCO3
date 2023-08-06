@@ -11,7 +11,7 @@ const importData = require('./source/models/data/import-data.js');
 // - Express application setup
 const app = express();
 const urlencoded = express.urlencoded({ extended: true });
-const port = process.env.SERVER_PORT ?? 3000;
+const port = process.env.PORT;
 
 async function startServer() {
     app.set('view engine', 'ejs');          // embedded javascript (EJS) as view engine
