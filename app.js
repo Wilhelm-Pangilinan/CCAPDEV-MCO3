@@ -9,6 +9,10 @@
         3 - Dominic Marcus Herceve
                         
 *********************************************************/
+// - dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+
 // - Express
 const express = require('express');
 const app = express();
