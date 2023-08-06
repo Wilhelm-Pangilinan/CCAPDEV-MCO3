@@ -12,11 +12,11 @@
 // - Express
 const express = require('express');
 const app = express();
-const port = process.env.SERVER_PORT ?? 3000;
+const port = process.env.PORT;
 
 // - Mongoose
 const mongoose = require('mongoose/');
-const db_url = "mongodb://127.0.0.1/lab-system-db"
+const db_url = process.env.MONGODB_URI;
 
 // - Modules
 const router = require('./source/controller/router.js');
