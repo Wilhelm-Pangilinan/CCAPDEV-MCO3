@@ -1,0 +1,296 @@
+{
+
+    "laboratory" : [
+        {
+            "name": "Tenno Lab",
+            "row": "5",
+            "col": "5",
+            "imageURL": "/images/laboratory/tenno-lab.png",
+            "reservationsRef": []
+        },
+        {
+            "name": "Hoshino Lab",
+            "row": "4",
+            "col": "5",
+            "imageURL": "/images/laboratory/hoshino-lab.png",
+            "reservationsRef": []
+        },
+        {
+            "name": "Sunny Meadows",
+            "row": "6",
+            "col": "6",
+            "imageURL": "/images/laboratory/sunny-meadows.png",
+            "reservationsRef": []
+        },
+        {
+            "name": "Towa Lab",
+            "row": "3",
+            "col": "3",
+            "imageURL": "/images/laboratory/towa-lab.png",
+            "reservationsRef": []
+        },
+        {
+            "name": "Boo, Inc.",
+            "row": "1",
+            "col": "1",
+            "imageURL": "/images/laboratory/boo-lab.png",
+            "reservationsRef": []
+        }
+    ],
+
+    "technician" : [
+        {   
+            "name": "Synth",
+            "id": "12190000",
+            "email": "synth.technician@dlsu.edu.ph",
+            "password": "Synth0"
+        }
+    ],
+
+    "students" : [
+        {   
+            "name": {
+                "firstName": "Sebastien Michael",
+                "lastName": "Dela Cruz"
+            },
+            "id": "12190000",
+            "email": "sebastien_delacruz@dlsu.edu.ph",
+            "password": "Sebastien0",
+            "reservationsRef": []
+        },
+        {   
+            "name": {
+                "firstName": "Wilhelm Vincent",
+                "lastName": "Pangilinan"
+            },
+            "id": "12190001",
+            "email": "wilhelm_pangilinan@dlsu.edu.ph",
+            "password": "Wilhelm1",
+            "reservationsRef": []
+        },
+        {   
+            "name": {
+                "firstName": "Dominic Marcus",
+                "lastName": "Herce"
+            },
+            "id": "12190002",
+            "email": "dominic_herce@dlsu.edu.ph",
+            "password": "Dominic2",
+            "reservationsRef": []
+
+        },
+        {   
+            "name": {
+                "firstName": "Luis Rafayel",
+                "lastName": "Jaime"
+            },
+            "id": "12190003",
+            "email": "luis_jaime@dlsu.edu.ph",
+            "password": "Luis3",
+            "reservationsRef": []
+        },
+        {   
+            "name": {
+                "firstName": "Juan",
+                "lastName": "Dela Cruz"
+            },
+            "id": "12190004",
+            "email": "juan_delacruz@dlsu.edu.ph",
+            "password": "Juan4",
+            "reservationsRef": []
+        }
+    ],
+
+    "reservations" : [
+        {
+            "labName" : "Hoshino Lab",
+            "studentID" : "12190000", 
+            "seat" : "7",
+            "reservationDate" : "2023-07-28",
+            "startTime": "0730",
+            "endTime": "0930",
+            "requestDate" : "2023-07-28T16:00:00Z",
+            "isAnonymous" : false
+        },
+        {
+            "labName" : "Tenno Lab",
+            "studentID" : "12190000", 
+            "seat" : "9",
+            "reservationDate" : "2023-07-28",
+            "startTime": "1000",
+            "endTime": "1200",
+            "requestDate" : "2023-07-28T16:01:00Z",
+            "isAnonymous" : false
+        },
+        {
+            "labName" : "Hoshino Lab",
+            "studentID" : "12190000", 
+            "seat" : "18",
+            "reservationDate" : "2023-07-28",
+            "startTime": "1230",
+            "endTime": "1430",
+            "requestDate" : "2023-07-28T16:01:30Z",
+            "isAnonymous" : false
+        },
+        {
+            "labName": "Hoshino Lab",
+            "studentID": "12190001",
+            "seat": "5",
+            "reservationDate": "2023-07-28",
+            "startTime": "1000",
+            "endTime": "1100",
+            "requestDate": "2023-07-25T08:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Towa Lab",
+            "studentID": "12190001",
+            "seat": "2",
+            "reservationDate": "2023-07-29",
+            "startTime": "0800",
+            "endTime": "1000",
+            "requestDate": "2023-07-25T08:30:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Sunny Meadows",
+            "studentID": "12190001",
+            "seat": "8",
+            "reservationDate": "2023-07-30",
+            "startTime": "1400",
+            "endTime": "1600",
+            "requestDate": "2023-07-25T09:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Boo, Inc.",
+            "studentID": "12190001",
+            "seat": "1",
+            "reservationDate": "2023-07-31",
+            "startTime": "1500",
+            "endTime": "1700",
+            "requestDate": "2023-07-25T09:30:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Tenno Lab",
+            "studentID": "12190002",
+            "seat": "4",
+            "reservationDate": "2023-07-28",
+            "startTime": "0730",
+            "endTime": "0900",
+            "requestDate": "2023-07-25T10:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Hoshino Lab",
+            "studentID": "12190002",
+            "seat": "7",
+            "reservationDate": "2023-07-29",
+            "startTime": "1100",
+            "endTime": "1230",
+            "requestDate": "2023-07-25T10:30:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Sunny Meadows",
+            "studentID": "12190002",
+            "seat": "12",
+            "reservationDate": "2023-07-30",
+            "startTime": "1300",
+            "endTime": "1430",
+            "requestDate": "2023-07-25T11:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Towa Lab",
+            "studentID": "12190002",
+            "seat": "5",
+            "reservationDate": "2023-07-31",
+            "startTime": "1500",
+            "endTime": "1630",
+            "requestDate": "2023-07-25T11:30:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Sunny Meadows",
+            "studentID": "12190003",
+            "seat": "12",
+            "reservationDate": "2023-07-25",
+            "startTime": "0800",
+            "endTime": "1030",
+            "requestDate": "2023-07-24T12:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Towa Lab",
+            "studentID": "12190003",
+            "seat": "6",
+            "reservationDate": "2023-07-25",
+            "startTime": "1100",
+            "endTime": "1330",
+            "requestDate": "2023-07-24T12:01:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Boo, Inc.",
+            "studentID": "12190003",
+            "seat": "1",
+            "reservationDate": "2023-07-26",
+            "startTime": "1400",
+            "endTime": "1630",
+            "requestDate": "2023-07-24T12:02:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Hoshino Lab",
+            "studentID": "12190003",
+            "seat": "17",
+            "reservationDate": "2023-07-26",
+            "startTime": "0800",
+            "endTime": "1030",
+            "requestDate": "2023-07-24T12:03:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Boo, Inc.",
+            "studentID": "12190004",
+            "seat": "1",
+            "reservationDate": "2023-07-28",
+            "startTime": "0800",
+            "endTime": "0930",
+            "requestDate": "2023-07-25T14:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Sunny Meadows",
+            "studentID": "12190004",
+            "seat": "5",
+            "reservationDate": "2023-07-29",
+            "startTime": "1000",
+            "endTime": "1130",
+            "requestDate": "2023-07-25T14:30:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Hoshino Lab",
+            "studentID": "12190004",
+            "seat": "4",
+            "reservationDate": "2023-07-30",
+            "startTime": "1200",
+            "endTime": "1330",
+            "requestDate": "2023-07-25T15:00:00Z",
+            "isAnonymous": false
+        },
+        {
+            "labName": "Towa Lab",
+            "studentID": "12190004",
+            "seat": "1",
+            "reservationDate": "2023-07-31",
+            "startTime": "1400",
+            "endTime": "1530",
+            "requestDate": "2023-07-25T15:30:00Z",
+            "isAnonymous": false
+        }
+    ]
+}

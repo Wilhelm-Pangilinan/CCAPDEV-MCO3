@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title>Reservation</title>
+    <link rel = "stylesheet" type = "text/css" href = "/css/reservation.css">
+    <script src = "/js/reservation.js"> </script>
+</head>
+
+<body> 
+    <div class = "wrapper">
+        <!-----------------------------------------------
+                        STICKY SIDEBAR                     
+        ------------------------------------------------>
+        <%- include("./partials/sidebar.ejs") %>
+
+        <div class = "main-container" id = "main-container">
+            <!-----------------------------------------------
+                            STICKY HEADER                     
+            ------------------------------------------------>
+            <%- include("./partials/header.ejs", { headerTitle: lab.name }) %>
+
+
+            <div class = "body"> 
+                <div class = "seat-container"> 
+                    <div id = "lab-seats"> </div>
+                </div>
+
+                <div class = "timeslot-container" id = "timeslot-container">
+                </div>
+            </div>
+
+        </div>
+    </div>  
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var seatContainer = document.getElementById('lab-seats');
+            var seatCounter = 1;
+            const baseTimeInMin = 450;    
+
+            // - Append laboratory name to header
+            var headerTitle = document.getElementById('header-title');
+            headerTitle.textContent = laboratory.name;
+
+            // - Generate row boxes
+            for( let i = 0; i < laboratory.col; i++ ) {
+                var rowBoxes = document.createElement('div');
+                rowBoxes.className = 'row-box';
+
+                // - Generate seats
+                for( let j = 0; j < laboratory.row; j++ ) {
+                    var seatBoxes = document.createElement('div');
+                    seatBoxes.className = 'seat-box';
+                    seatBoxes.innerHTML = seatCounter;
+                    seatCounter++;
+
+                    seatBoxes.addEventListener('click', function()  {
+                        var timeSlotContainer = document.getElementById('timeslot-container');
+                        timeSlotContainer.innerHTML = '';
+                        
+                        for( let k = 0; k < 19; k++ ) {
+                            var timeSlotBox = document.createElement('div');
+
+                            if( seatCounter > 6 ) {
+                                var random = getRandomInt(1,10  );
+                                // - Red Box
+                                if( random === 1 ) {
+                                    timeSlotBox.innerHTML = `<input type = "checkbox" disabled> ${convertMinutesToTime(baseTimeInMin + (30*(k)))} - ${convertMinutesToTime(baseTimeInMin + (30*(1 + k)))}`;
+                                    timeSlotBox.className = 'timeslot-box-red';
+                                } 
+                                // - Green Box
+                                else if( random === 2 ) {
+                                    timeSlotBox.innerHTML = `<input type = "checkbox"> ${convertMinutesToTime(baseTimeInMin + (30*(k)))} - ${convertMinutesToTime(baseTimeInMin + (30*(1 + k)))}`;
+                                    timeSlotBox.className = 'timeslot-box-green';
+
+                                // - White Box
+                                } else {
+                                    timeSlotBox.innerHTML = `<input type = "checkbox"> ${convertMinutesToTime(baseTimeInMin + (30*(k)))} - ${convertMinutesToTime(baseTimeInMin + (30*(1 + k)))}`;
+                                    timeSlotBox.className = 'timeslot-box';
+                                }
+                            }
+                            timeSlotContainer.appendChild(timeSlotBox);
+                        }
+                    
+                        // - Time Slot Button Container
+                        var timeSlotButtonContainer = document.createElement('div');
+                        timeSlotButtonContainer.className = 'timeslot-button-container';
+
+                        // - Anonymous button
+                        var anonymousButton = document.createElement('div');
+                        anonymousButton.className = 'anonymous-button';
+                        anonymousButton.innerHTML = '<input type="checkbox"> Anonymous';
+                    
+                        // - Confirm button
+                        var confirmButton = document.createElement('div');
+                        confirmButton.className = 'confirm-button';
+                        confirmButton.innerHTML = '<button onclick="checkTimeslots()">Confirm Reservation</button>';
+                    
+                        timeSlotButtonContainer.appendChild(anonymousButton);
+                        timeSlotButtonContainer.appendChild(confirmButton);
+                        timeSlotContainer.appendChild(timeSlotButtonContainer);
+                    });
+                    rowBoxes.appendChild(seatBoxes);
+                }
+                seatContainer.appendChild(rowBoxes);
+            }
+
+            // - Generate the time slots
+            var seatBoxes = document.querySelectorAll
+        });
+    </script>
+</body> 
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel = "stylesheet" type = "text/css" href = "/css/dashboard.css">
+    <script src = "/js/dashboard.js" defer> </script>
+</head>
+
+<body> 
+    <div class = "wrapper">
+        <!-----------------------------------------------
+                        STICKY SIDEBAR                     
+        ------------------------------------------------>
+        <%- include("./partials/sidebar.ejs") %>
+
+        <div class = "main-container" id = "main-container">
+            <!-----------------------------------------------
+                            STICKY HEADER                     
+            ------------------------------------------------>
+            <%- include("./partials/header.ejs", { headerTitle: "Dashboard" }) %>
+
+            <div class = "body">
+                <div id = "reservation-container"> 
+                </div>
+            </div>
+        </div>
+    </div>  
+    
+    <div id = "reservations-data" reservations-data = '<%=JSON.stringify(reservationsData) %>'> </div>
+
+    <script>
+        const reservations = JSON.parse(document.getElementById('reservations-data').getAttribute('reservations-data'));
+    </script>
+
+</body> 
+</html>

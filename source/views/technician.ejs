@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title> Technician Dashboard </title>
+    <link rel = "stylesheet" type = "text/css" href = "/css/technician.css">
+    <script src = "/js/technician.ejs"> </script>
+</head>
+
+<body> 
+    <div class = "wrapper">
+        <!-----------------------------------------------
+                        STICKY SIDEBAR                     
+        ------------------------------------------------>
+        <%- include("./partials/technician-sidebar.ejs") %>
+
+        <div class = "main-container" id = "main-container">
+            <!-----------------------------------------------
+                            STICKY HEADER                     
+            ------------------------------------------------>
+            <%- include("./partials/header.ejs", { headerTitle: "Technician" }) %>
+
+            <div class = "body">
+                
+
+            </div>
+        </div>
+    </div>  
+</body> 
+</html>

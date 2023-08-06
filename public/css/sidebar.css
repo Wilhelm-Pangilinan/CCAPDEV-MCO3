@@ -1,0 +1,158 @@
+@import url( 'https://fonts.cdnfonts.com/css/berlin-sans-fb' );
+@import url( 'https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Rock+Salt&display=swap' );
+
+:root {
+    --logo: url("/images/logo.png");
+    --profile-icon-white: url("/images/profile-icon.png");
+    --reservation-icon-white: url("/images/reservation-icon-white.png");
+    --laboratory-icon-white: url("/images/laboratory-icon-white.png");
+    --logout-icon-white: url("/images/logout-icon-white.png");
+    --lab-image-1: url("/images/lab-image-1.png");
+    --lab-image-2: url("/images/lab-image-2.png");
+    --lab-image-3: url("/images/lab-image-3.png");
+    --add-icon: url("/images/add-icon-white.png");
+}
+
+/***********************************************
+                     LOGO                    
+***********************************************/
+div.logo {
+	height: 50px;
+	width: 200px;
+    display: block;
+    margin: 50px 0 55px 15px;
+    font-size: 29px;
+}
+
+a.lab {
+    color:#fff;
+    font-weight: 700;
+    text-decoration: none;
+    justify-content:flex-start;
+    font-family: "SChakra Petch", Arial, sans-serif;
+
+    background: linear-gradient(180deg, rgba(216,172,80,1) 20%, rgba(146,113,44,1) 80%);    
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+a.book {
+    color:#fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: "Rock Salt", Arial, sans-serif;
+
+    background: linear-gradient(180deg, rgba(216,172,80,1) 20%, rgba(146,113,44,1) 80%);    
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+/***********************************************
+                SIDEBAR - Styles               
+***********************************************/
+div.sidebar {
+    height: 100%;
+    min-width: 220px;
+    max-width: 220px;
+    
+    position: fixed;    
+    top: 0;
+    
+    color: white;
+    font-size: 15px;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;   
+}
+
+div.sidebar span {
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+}
+
+div.button {
+    margin: 25px 60px 30px 60px;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;   
+}
+
+/* For the logout button */
+div.button:last-of-type {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+div.icon-box {
+    position: relative;
+    left: 20%;
+}
+
+div.button-text-box {
+    padding-top: 8px;
+}
+
+.button-text {
+    font-size: 15px;
+}
+
+/***********************************************
+            SIDEBAR - Button Animations                
+***********************************************/
+div.button:hover {
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.5);
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+div.button:active {
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+div.button:not(:hover) {
+    transition: 0.3s;
+}
+
+/***********************************************
+                SIDEBAR - Images                
+***********************************************/
+span.profile-icon-white {
+    height: 50px;
+	width: 50px;
+    
+    display: block;
+    background-image: var(--profile-icon-white);
+}
+
+span.reservation-icon-white {
+    height: 50px;
+	width: 50px;
+    
+    display: block;
+    background-image: var(--reservation-icon-white);
+}
+
+span.laboratory-icon-white {
+    height: 50px;
+	width: 50px;
+    
+    display: block;
+    background-image: var(--laboratory-icon-white);
+}
+
+span.logout-icon-white {
+    height: 50px;
+	width: 50px;
+    
+    display: block;
+    background-image: var(--logout-icon-white);
+}

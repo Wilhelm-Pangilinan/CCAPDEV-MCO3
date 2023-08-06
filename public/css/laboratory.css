@@ -1,0 +1,213 @@
+@import url( 'https://fonts.cdnfonts.com/css/berlin-sans-fb' );
+
+:root {
+    --profile-background: url("/images/profile-background.jpg");
+    --logo: url("/images/logo.png");
+    --profile-icon-white: url("/images/profile-icon.png");
+    --reservation-icon-white: url("/images/reservation-icon-white.png");
+    --laboratory-icon-white: url("/images/laboratory-icon-white.png");
+    --logout-icon-white: url("/images/logout-icon-white.png");
+}
+
+html, body {
+    height: 100%;
+    width: 100%;    
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: rgb(26,40,37);
+    background: linear-gradient(90deg, rgba(26,40,37,1) 20%, rgba(22,67,56,1) 80%);
+    display: flex;
+
+    color: white;
+    font-family: 'Berlin Sans FB', sans-serif;
+}
+
+
+/***********************************************
+                MAIN CONTAINER                    
+***********************************************/
+div.wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+/***********************************************
+                CONTENT CONTAINER                   
+***********************************************/
+div.main-container {
+    height: 100%;
+    width: 85%;
+
+    display: block;
+    position: relative;
+    left: 225px;
+}
+
+/***********************************************
+                CONTENT - Styles                 
+***********************************************/
+div.body {
+    display: flex;
+    padding-left: 40px;
+}
+
+div.body:last-child div.lab-box {
+    margin-bottom: 30px;
+}
+
+/***********************************************
+                LABORATORY BOXES                
+***********************************************/
+div.lab-box {
+    min-height: 400px;
+    max-height: 420px;
+    min-width: 480px;
+    max-width: 480px;
+
+    display: block;
+    margin: 30px 20px 5px 10px;
+
+    background: rgba(255,255,255,0.1);
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+div.image-box {
+    height: 70%;
+    width: 94%;
+    margin: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+div.text-box {
+    position: relative;
+    top: 5%;
+    text-align: center;
+}
+
+.lab-name {
+    color: white;
+    font-size: 36px;
+}
+
+/***********************************************
+            LABORATORY - Button Animations                
+***********************************************/
+div.lab-box:hover {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.5);
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+div.lab-box:active {
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+div.lab-box:not(:hover) {
+    transition: 0.3s;
+}
+
+/***********************************************
+                  POP-UP BOXES                  
+***********************************************/
+.modal {
+    height: 50%;
+    width: 30%;
+    min-width: 650px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+
+    background-color: #dad9d9;
+    border: 1px solid rgb(87, 82, 82);
+    border-radius: 10px;
+    transition: 200ms ease-in-out;
+    z-index: 4;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+  
+.modal-header {
+    display: flex;
+    padding: 10px 15px;
+
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+  
+.title {
+    color: #31574e;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-size: 38px;
+    margin: 10px;
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    margin: 10px;
+    padding: 10px 15px;
+    color: #31574e;
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.modal-text {
+    color: #31574e;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .6);
+    pointer-events: none;
+    z-index: 4;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/***********************************************
+                CONTENT - Images                 
+***********************************************/
+span.lab-image {
+    height: 100%;
+	width: 100%;
+    display: block;
+    background-size: 500px;
+    border-radius: 8px;
+}

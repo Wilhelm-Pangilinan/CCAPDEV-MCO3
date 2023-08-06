@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab Reservation System</title>
+    <link rel = "stylesheet" type = "text/css" href = "/css/laboratory.css">
+    <script src = "/js/laboratory.js"> </script>
+</head>
+
+<body> 
+    <div class = "wrapper">
+
+        <!-----------------------------------------------
+                        STICKY SIDEBAR                     
+        ------------------------------------------------>
+        <%- include("./partials/sidebar.ejs") %>
+
+        <div class = "main-container">
+            <!-----------------------------------------------
+                              STICKY HEADER                     
+            ------------------------------------------------>
+            <%- include("./partials/header.ejs", { headerTitle: "Laboratories" }) %>
+
+            <!-----------------------------------------------
+                                LAB BOXES             
+            ------------------------------------------------>
+            <% laboratories.forEach((lab, index) => { %>
+                <!-- Add a new "body" div for every 3 laboratories -->
+                <% if( index % 3 === 0 ) { %> 
+                    <div class = "body">
+                <% } %>
+
+                <div class = "lab-box" onclick = "navigateToPage('reservation?lab=<%=lab.name%>')">  
+                    <div class = "image-box"> 
+                        <span class = "lab-image" style = "background-image: url('<%= lab.imageURL %>')"> </span>
+                    </div>
+                    <div class = "text-box">
+                        <span class = "lab-name"> <%= lab.name %> </span>
+                    </div>
+                </div>
+
+                <!-- Close the "body" div after every 3 laboratories or at the end of the loop -->
+                <% if( (index + 1) % 3 === 0 || index === laboratories.length - 1 ) { %> 
+                    </div>
+                <% } %>
+            <% }); %>
+
+        </div>
+    </div>  
+</body> 
+</html>

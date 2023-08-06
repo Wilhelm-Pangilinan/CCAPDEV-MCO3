@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title>Reservation</title>
+    <link rel = "stylesheet" type = "text/css" href = "/css/reservation.css">
+    <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src = "/js/reservation.js"> </script>
+    <script src = "https://cdn.jsdelivr.net/npm/flatpickr"> </script>
+</head>
+
+<body> 
+    <div class = "wrapper">
+        <!-----------------------------------------------
+                        STICKY SIDEBAR                     
+        ------------------------------------------------>
+        <%- include("./partials/sidebar.ejs") %>
+
+        <div class = "main-container" id = "main-container">
+            <!-----------------------------------------------
+                            STICKY HEADER                     
+            ------------------------------------------------>
+            <%- include("./partials/header.ejs", { headerTitle: laboratoryData[0].laboratory.name }) %>
+
+            <!-----------------------------------------------
+                                 INPUTS                     
+            ------------------------------------------------>
+            <form id = "reservation-form" action = "/reserve" method = "POST"> 
+
+                <div class = "input-container">
+                    <div class = "date-input-box"> 
+                        <label class = "input-label"> Select date: </label>
+                        <input type = "date" id = "date-input" name = "date" class = "custom-date-input" required min = "2023-07-24" max = "2023-07-31">
+                    </div>
+                    <div class = "anonymous-input-box"> 
+                        <label class = "input-label"> Anonymous: </label>
+                        <input type = "checkbox" id = "anonymous-checkbox" name = "isAnonymous" checked>
+                    </div>
+                    <div class = "selected-seat-label"> 
+                        <label class = "input-label" id = "seat-number-label"> </label>
+                    </div>
+                    <div class = "confirm-button-box" id = "confirm-button-box">
+                        <!--<button type = "button" id = "confirm-button"> Confirm Reservation </button>-->
+                    </div>
+                </div>
+
+                <div class = "body"> 
+                    <div class = "seat-container"> 
+                        <div id = "lab-seats"> </div>
+                    </div>
+                    <div class = "timeslot-container" id = "timeslot-container">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>  
+
+    <div id = "laboratory-data" laboratory-data = '<%=JSON.stringify(laboratoryData[0].laboratory)%>'> </div>
+    <div id = "reservations-data" reservations-data = '<%= JSON.stringify(laboratoryData[0].reservations) %>'></div>
+
+    <script>
+        flatpickr( "#date-input", {
+            dateFormat: "Y-m-d", 
+            minDate: "2023-07-24", 
+            maxDate: "2023-07-31", 
+            altInput: true, 
+            altFormat: "F j, Y", 
+            defaultDate: "2023-07-24",
+        });
+    </script>
+</body> 
+</html>

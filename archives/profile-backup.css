@@ -1,0 +1,204 @@
+:root {
+    --profile-background: url("/images/profile-background.jpg");
+}
+
+html, body {
+    height: 100%;
+    width: 100%;    
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: rgb(26,40,37);
+    background: linear-gradient(90deg, rgba(26,40,37,1) 20%, rgba(22,67,56,1) 80%);
+    display: flex;
+
+    color: white;
+    font-family: 'Berlin Sans FB', sans-serif;
+}
+
+
+/***********************************************
+                    CONTAINERS                 
+***********************************************/
+div.wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+div.main-container {
+    height: 100%;
+    width: 85%;
+    display: block;
+    position: relative;
+    left: 225px;
+}
+
+/***********************************************
+                     HEADER                    
+***********************************************/
+div.header {
+    height: 150px;
+    width: 100%;
+    position: sticky;
+    left: 200px;
+    top: 0;
+    border-bottom: 5px solid rgba(255,255,255,0.5);
+    z-index: 2; /* Prioritizes the header and puts it at the front */
+}
+
+div.header-box {
+    padding: 50px 0 0 50px;
+}
+
+.header-title {
+    padding-top: 50px;
+    font-size: 60px;
+}
+
+/***********************************************
+                     PROFILE       
+***********************************************/
+div.profile-container {
+    border-radius: 25px;
+    max-width: 100%;
+    height: auto;
+    color: white;
+}
+
+div.profile-header {
+    display: flex;
+    padding: 50px 50px 0px 50px;
+}
+
+    /***********************************************
+              Upload Profile Picture Button                    
+    ***********************************************/
+    label.upload-button {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
+
+    div.profile-picture-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    img#profile-pic {
+        border-radius: 50%;
+        border: 2px solid white;
+        height: 200px;
+        width: 200px;
+    }
+
+    div.text-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.3s ease;
+        border-radius: 50%;
+    }
+    
+    div.text-overlay span {
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    /***********************************************
+            Profile Info: Full Name, ID Number                  
+    ***********************************************/
+    div.profile-info {
+        margin-left: 30px;
+        font-size: 18px;
+    }
+
+        /***********************************************
+                    Edit Profile Description                 
+        ***********************************************/
+        #edit-profile-button {
+            background-color: lightgreen;
+        }
+
+        #delete-account {
+            background-color: red;
+        }
+
+        button.button {
+            height: 50px;
+            position: relative;
+            top: 145px;
+            right: 250px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }  
+
+        button.save-button {
+            height: 50px;
+            margin-top: 27px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background-color: lightgreen;
+            outline: none;
+            cursor: pointer;
+        }  
+
+        .pop-up {
+            width: auto;
+            background: #fff;
+            border-radius: 6px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1); 
+            text-align: center;
+            padding: 30px 30px 30px 30px;
+            color: #333;
+            visibility: hidden;
+            transition: tranform 0.4s, top 0.4s;
+        }
+
+        .open-popup { 
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #new-description {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        
+/***********************************************
+      Profile Info: Description, Reservation               
+***********************************************/
+div.profile-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px 10px 30px;
+}
+
+/***********************************************
+                PROFILE - Animations                     
+***********************************************/
+label.upload-button:hover .text-overlay {
+    opacity: 1;
+}
+  
+.profile-picture-container:hover .text-overlay {
+    opacity: 1;
+}

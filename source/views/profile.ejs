@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile</title>
+    <link rel = "stylesheet" href = "css/profile.css" type = "text/css">
+    <script src = "js/profile.js" defer> </script>
+</head>
+
+<body>
+    <div class = "wrapper">
+        <!-----------------------------------------------
+                        STICKY SIDEBAR                     
+        ------------------------------------------------>
+        <%- include("./partials/sidebar.ejs") %>
+
+        <div class = "main-container">
+            <!-----------------------------------------------
+                            STICKY HEADER                     
+            ------------------------------------------------>
+            <%- include("./partials/header.ejs", { headerTitle: "Profile" }) %>
+            
+            <!-----------------------------------------------
+                            PROFILE DETAILS                   
+            ------------------------------------------------>
+            <div class = "profile-container"> 
+
+                <div class = "details">
+                    <h1 id = "name"> <%= student.name.firstName + " " +  student.name.lastName %> </h1>
+                    <h2> Biography </h2>
+                    <p id = "profile-description"> No description </p>
+                </div>
+
+                <div class = "settings">
+                    <button class = "button" id = "edit-profile-button"> Edit Profile </button>
+                    <button class = "button" id = "delete-account"> Delete Account </button>
+                </div>
+            </div>
+
+            <!-----------------------------------------------
+                            RESERVATION DETAILS                   
+            ------------------------------------------------>
+            <h2> Public Reservations </h2>
+            <div id = "reservation-container"> 
+            </div>
+        </div>
+
+        <!-----------------------------------------------
+                Edit Profile Description Popup Box
+        ------------------------------------------------>
+        <div class = "pop-up" id = "pop-up">
+            <p>Description Editor</p>
+            <textarea name = "new-description" id = "new-description" cols = "30" rows = "5" placeholder = "Enter new description"> </textarea>
+            <br>
+            <button id = "save-button" class = "save-button"> Save Changes </button>
+            <button id = "cancel-button" class = "cancel-button"> Cancel </button>
+        </div>
+
+        <!-----------------------------------------------
+                        Delete Profile Popup Box
+        ------------------------------------------------>
+        <div class="delete-popup" id="delete-popup">
+            <p>Are you sure you want to delete your account?</p>
+            <div class="button-container">
+                <button class="delete-button" id="confirm-delete">Delete</button>
+                <button class="cancel-button" id="cancel-delete">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id = "student-data" student-data = '<%=JSON.stringify(student) %>'> </div>
+    <div id = "reservations-data" reservations-data = '<%=JSON.stringify(reservationsData) %>'> </div>
+
+    <script>
+        const reservations = JSON.parse(document.getElementById('reservations-data').getAttribute('reservations-data'));
+        const studentData = JSON.parse(document.getElementById('student-data').getAttribute('student-data'));
+    </script>
+
+</body>
+</html>

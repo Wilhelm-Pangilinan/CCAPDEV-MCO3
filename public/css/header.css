@@ -1,0 +1,27 @@
+/***********************************************
+                     HEADER                    
+***********************************************/
+div.header {
+    height: 150px;
+    width: 100%;
+    
+    position: sticky;
+    left: 200px;
+    top: 0;
+
+    background: rgba(26,40,37,0.3);
+    background: linear-gradient(90deg, rgba(26,40,37,1) 15%, rgba(22,67,56,1) 80%);
+    border-bottom: 5px solid rgba(255,255,255,0.5);
+
+    z-index: 2; /* Prioritizes the header and puts it at the front */
+}
+
+div.header-box {
+    padding: 50px 0 0 50px;
+    padding-bottom: 50px;
+}
+
+.header-title {
+    padding-top: 50px;
+    font-size: 60px;
+}

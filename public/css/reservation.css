@@ -1,0 +1,313 @@
+@import url( 'https://fonts.cdnfonts.com/css/berlin-sans-fb' );
+@import url('https://fonts.cdnfonts.com/css/vic');
+
+html, body {
+    height: 100%;
+    width: 100%;    
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: rgb(26,40,37);
+    background: linear-gradient(90deg, rgba(26,40,37,1) 20%, rgba(22,67,56,1) 80%);
+    display: flex;
+    color: white;
+    font-family: 'Berlin Sans FB', sans-serif;
+}
+
+/***********************************************
+                MAIN CONTAINER                    
+***********************************************/
+div.wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+div.main-container {
+    height: 100%;
+    width: 85%;
+    display: block;
+    position: relative;
+    left: 225px;
+}
+
+/***********************************************
+                CONTENT CONTAINER                   
+***********************************************/
+div.main-container {
+    height: 100%;
+    width: 85%;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 225px;
+}
+
+div.body {
+    height: 730px;
+    width: 1575px;
+
+    display: flex;
+
+}
+
+
+/***********************************************
+                INPUT CONTAINER                   
+***********************************************/
+div.input-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+}
+
+div.date-input-box {
+    min-width: 200px;
+    max-width: 500px;
+    width: 30%;
+}
+
+div.date-input-box .input-label {
+    font-size: 32px;
+    padding-left: 50px;
+}
+
+div.date-input-box .input {
+    margin: 10px;
+    position: relative;
+    bottom: 2px;
+    left: 2px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+div.anonymous-input-box {
+    min-width: 200px;
+    max-width: 500px;
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 32px;
+    margin-left: 30px;
+}
+
+div.selected-seat-label {
+    margin-left: 40px;
+    min-width: 250px;
+    max-width: 250px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 32px;
+}
+
+input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+}
+
+div.confirm-button-box {
+    min-width: 200px;
+    position: relative;
+    left: 140px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+button#confirm-button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 28px;
+    padding: 5px 20px;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+  
+button#confirm-button:hover {
+    background-color: #1e5720;
+    background: rgba(30,87,32,1);
+    border: 1px solid #1e5720;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/***********************************************
+                    SEATS                    
+***********************************************/
+div.seat-container {
+    width: 80%;
+    margin: 15px;
+    padding-left: 15px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    padding-bottom: 10px;
+}
+
+div.row-box {
+    width: 100%;
+    min-height: 100px;
+    max-height: 130px;
+    display: flex;
+}
+
+div.seat-box {
+    min-width: 110px;
+    min-height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0px 0px 15px;
+
+    background-color: lightgray;
+    border-radius: 5px;
+
+    color: black;
+    font-size: 32px;
+
+    justify-content: center;
+    text-align: center;
+}
+
+div.seat-box:first-of-type {
+    margin: 15px 0px 0px 0px;
+}
+
+
+/***********************************************
+            SIDEBAR - Button Animations                
+***********************************************/
+div.seat-box:hover {
+    background: rgba(255,255,255,0.6);
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+div.seat-box:active {
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+div.seat-box:not(:hover) {
+    transition: 0.3s;
+}
+
+/***********************************************
+                    TIMESLOTS                    
+***********************************************/
+div.timeslot-container {
+    width: 40%;
+    height: 94.5%;
+    margin: 15px 15px 15px 0px;
+    position: relative; 
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 3px;
+    background: rgba(0,0,0,0.3);
+}
+
+.timeslot-box {
+    height: 10%;
+    width: 90;
+    margin: 10px;
+    padding-left: 20px;
+    background: rgba(255,255,255,0.1);
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.timeslot-box input {
+    height: 25px;
+    width: 25px;
+}
+
+.timeslot-box .timeslot-label {
+    font-size: 20px;       
+    font-family: 'VIC', sans-serif;
+    position: relative;
+    left: 15px;
+}
+
+div.timeslot-button-container {
+    width: 100%;
+    height: 15%;
+
+    display: flex;
+    position: sticky;
+    bottom: 0;
+    background: rgba(0,0,0);
+
+}
+
+div.anonymous-button {
+    height: 80%;
+    width: 30%;
+    background: rgba(0,0,0,0.3);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+/***********************************************
+                CONFIRMATION MODAL                    
+***********************************************/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 300px;
+    max-width: 80%;
+    margin: 100px auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#confirmReservationBtn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

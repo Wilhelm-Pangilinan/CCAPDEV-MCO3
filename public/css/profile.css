@@ -1,0 +1,436 @@
+:root {
+    --profile-background: url("/images/profile-background.jpg");
+}
+
+html, body {
+    height: 100%;
+    width: 100%;    
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: rgb(26,40,37);
+    background: linear-gradient(90deg, rgba(26,40,37,1) 20%, rgba(22,67,56,1) 80%);
+    display: flex;
+
+    color: white;
+    font-family: 'Berlin Sans FB', sans-serif;
+}
+
+
+/***********************************************
+                    CONTAINERS                 
+***********************************************/
+div.wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+div.main-container {
+    height: 100%;
+    width: 85%;
+    display: block;
+    position: relative;
+    left: 225px;
+}
+
+/***********************************************
+                PROFILE CONTAINER                 
+***********************************************/
+div.profile-container {
+    width: 96%;
+    min-height: 200px;
+    margin: 15px;
+    padding: 15px;
+
+    display: flex;
+    
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+div.profile-container div {
+    padding-left: 10px;
+}
+
+
+div.profile-container .picture {
+    width: 15%;
+}
+
+div.profile-container .details {
+    position: relative;
+    left: 50px;
+    width: 70%;
+}
+
+
+div.profile-container .settings {
+    padding: 0;
+    margin: 10px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    position: relative;
+    left: 280px;
+}
+
+div.profile-header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 50px 0px 50px;
+}
+
+div.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/***********************************************
+            Upload Profile Picture Button                    
+***********************************************/
+label.upload-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+div.profile-picture-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+img#profile-pic {
+    border-radius: 50%;
+    border: 2px solid white;
+    height: 200px;
+    width: 200px;
+}
+
+div.text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+}
+
+div.text-overlay span {
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+
+/***********************************************
+                PROFILE - Animations                     
+***********************************************/
+label.upload-button:hover .text-overlay {
+    opacity: 1;
+}
+  
+.profile-picture-container:hover .text-overlay {
+    opacity: 1;
+}
+
+/***********************************************
+        Profile Info: Full Name, ID Number                  
+***********************************************/
+div.profile-info {
+    margin-left: 30px;
+    font-size: 18px;
+}
+
+/***********************************************
+                Delete Account                 
+***********************************************/
+
+.delete-popup {
+    width: 250px;
+    background: #fff;
+    border-radius: 6px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    text-align: center;
+    padding: 20px;
+    color: #333;
+    visibility: hidden;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .delete-popup p {
+    margin: 0 0 20px;
+  }
+
+/***********************************************
+            Edit Profile Description                 
+***********************************************/
+#edit-profile-button {
+    background-color: #90ee90;
+    position: relative;
+}
+
+#delete-account {
+    background-color: red;
+    position: relative;
+}
+
+button.button {
+    height: 50px;
+    position: relative;
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}  
+
+div.pop-up p {
+    margin: 0 0 20px;   
+}
+
+.pop-up {
+    width: auto;
+    background: #fff;
+    border-radius: 6px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1); 
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: tranform 0.4s, top 0.4s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.open-popup { 
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#new-description {
+    max-width: 800px;
+    max-height: 400px;
+}
+
+div.profile-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px 10px 30px;
+    position: relative;
+}
+
+div.profile-description {
+    margin-bottom: 20px;
+}
+
+p.description-text {
+    margin: 0;
+}
+
+div.edit-description {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+textarea#new-description {
+    align-self: center;
+    width: 300px;
+    height: 100px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+div.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button.cancel-button,
+button.save-button, button#confirm-delete.delete-button {
+    margin: 5px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.cancel-button {
+    background-color: #dbdbdb;
+    border: none;
+    color: #fff;
+}
+
+button#confirm-delete.delete-button{
+    background-color: #ff0000;
+    border: none;
+    color: #fff;
+}
+
+button.save-button {
+    background-color: #39f939;
+    border: none;
+    color: #fff;
+}
+
+button.cancel-button:hover,
+button.save-button:hover {
+    opacity: 0.8;
+}
+
+
+/***********************************************
+              RESERVATIONS CONTAINER                 
+***********************************************/
+div#reservation-container {
+    width: 96%;
+    margin: 15px;
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+
+    display: block;
+}
+
+div.reservations-box {
+    width: 98%;
+    min-height: 100px;
+    background: rgba(0,0,0,0.2);
+    margin: 10px;
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/***********************************************
+                CONTENT - Styles                 
+***********************************************/
+div.date-box {
+    margin: 30px;
+}
+
+div.date-box:not(:first-of-type) {
+    padding-top: 50px;
+}
+
+.date-text {
+    font-size: 32px;
+}
+
+/***********************************************
+                RESERVATION BOXES                
+***********************************************/
+div.reservation-box {
+    min-height: 265px;
+    max-height: 265px;
+    min-width: 480px;
+    width: 90%;
+
+    display: flex;
+    margin: 20px 50px 20px 80px;
+    position: relative;
+
+    background: rgba(255,255,255,0.1);
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+
+    align-items: center;
+    text-align: center;
+    font-size: 48px;
+}
+
+div.image-box {
+    min-height: 250px;
+    max-height: 250px;
+    min-width: 400px;
+    max-width: 400px;
+    margin: 5px;
+
+    background: rgba(255,255,255,0.1);
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+div.text-box {
+    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.first-line {
+    position: relative;
+    display: inline-block;
+    
+    margin: 0;
+    color: white;
+    font-size: 36px;
+}
+
+.second-line {
+    margin: 0;
+    color: #bebebe;
+    font-size: 32px;
+}
+
+.last-line {
+    margin: 0;
+    padding-left: 40%;
+    color: white;
+    font-size: 36px;
+}
+
+div.time-box {
+    font-size: 33px; 
+}
+
+div.reservation-box div.time-box {
+    position: absolute;
+    top: 30px; 
+    right: 30px; 
+}
+
+/***********************************************
+                CONTENT - Images                 
+***********************************************/
+span.lab-image {
+    min-height: 250px;
+    max-height: 250px;
+	width: 100%;
+    display: block;
+    background-size: 400px;
+    border-radius: 8px;
+
+}

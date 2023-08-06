@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <title> Login Page </title>
+    <link rel = "stylesheet" href = "/css/login.css">
+    <script src = "js/login.js" defer> </script>
+    <script src = "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"> </script>
+    <script nomodule src = "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"> </script>
+</head>
+
+<body>
+    <!-----------------------------------------------
+                      Website Logo
+    ------------------------------------------------>
+    <div class = "logo"> 
+        <a href = "#" class = "lab"> Lab</a>
+        <a href = "#" class = "book"> Book</a>
+    </div>        
+
+    <!-----------------------------------------------
+                  Login Form Container
+    ------------------------------------------------>  
+    <div class = "form-box-container" id = "login-container">
+        <div class = "form-box login">
+
+            <h2>Login</h2>
+
+            <!-- action = "#" makes it so that it doesn't send the data anywhere -->
+            <form id = "login-form" action = "/login" method = "POST">
+                <!-----------------------------------------------
+                                Email Input Bar
+                ------------------------------------------------> 
+                <div class = "input-box">
+                    <span class = "icon"> <ion-icon name = "mail"> </ion-icon> </span>
+                    <input type = "email" name = "login-email-input" required>
+                    <label> Email </label>
+                </div>
+
+                <!-----------------------------------------------
+                                Password Input Bar
+                ------------------------------------------------> 
+                <div class = "input-box">
+                    <span class = "icon"> <ion-icon name = "lock-closed" > </ion-icon> </span>
+                    <input type = "password" name = "login-password-input" required>
+                    <label> Password </label>
+                </div>
+
+                <!-----------------------------------------------
+                                  Login Button
+                ------------------------------------------------>                
+                <button type = "submit" class = "btn"> Login </button>
+
+                <!-----------------------------------------------
+                                  Register Link
+                ------------------------------------------------>  
+                <div class = "login-register">
+                    <p> Don't have an account? <a href = "#" class = "register-link"> Register </a> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-----------------------------------------------
+                  Register Form Container
+    ------------------------------------------------> 
+    <div class = "form-box-container" id = "register-container" style = "display: none;" >
+        <div class = "form-box register">
+
+            <h2> Registration </h2>
+            <form id = "register-form" action = "/register" method = "POST">
+                <!-----------------------------------------------
+                                Name Input Bar
+                ------------------------------------------------> 
+                <div class = "input-box-names">
+                    <div class = "name-input-box"> 
+                        <input type = "text" name = "register-first-name-input" required>
+                        <label class = "first-name"> First Name </label>
+                    </div>          
+                    <div class = "name-input-box"> 
+                        <input type = "text" name = "register-last-name-input" required>
+                        <label class = "last-name"> Last Name </label>
+                    </div>          
+                </div>
+
+                <!-----------------------------------------------
+                                Student ID Input Bar
+                ------------------------------------------------> 
+                <div class = "input-box">
+                    <input type = "text" name = "register-id-input" required pattern = "[0-9]{8}" title = "Please enter exactly 8 digits for the Student ID">
+                    <label> Student ID </label>
+                </div>
+                
+                <!-----------------------------------------------
+                                Email Input Bar
+                ------------------------------------------------> 
+                <div class = "input-box">
+                    <input type = "email" name = "register-email-input" required>
+                    <label> Email </label>
+                </div>
+
+                <!-----------------------------------------------
+                                Password Input Bar
+                ------------------------------------------------> 
+                <div class = "input-box">
+                    <span class = "icon"> <ion-icon name = "lock-closed" > </ion-icon> </span>
+                    <input type = "password" name = "register-password-input" required>
+                    <label> Password </label>
+                </div>
+
+                <!-----------------------------------------------
+                                  Register Button
+                ------------------------------------------------>                
+                <button type = "submit" class = "btn"> Register </button>
+
+                <!-----------------------------------------------
+                                  Login Link
+                ------------------------------------------------>
+                <div class = "login-register">
+                    <p> Already have an account? <a href = "#" class = "login-link"> Login </a> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

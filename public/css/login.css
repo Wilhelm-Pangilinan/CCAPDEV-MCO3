@@ -1,0 +1,235 @@
+@import url( 'https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Rock+Salt&display=swap' );
+
+:root {
+    --profile-background: url("/images/profile-background.jpg");
+    --logo: url("/images/logo.png");
+    --profile-icon-white: url("/images/profile-icon.png");
+    --reservation-icon-white: url("/images/reservation-icon-white.png");
+    --laboratory-icon-white: url("/images/laboratory-icon-white.png");
+    --logout-icon-white: url("/images/logout-icon-white.png");
+}
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins","sans-serif";
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to right,rgb(5, 73, 5),rgb(27, 135, 12));
+    background-repeat: no-repeat;
+    background-attachment: fixed ;
+    background-image: url('/images/login-background.png');
+    background-size: cover;
+    text-align: center;
+    margin-top: 100px;
+    overflow: hidden;
+}
+
+/***********************************************
+                     LOGO                    
+***********************************************/
+div.logo {
+    position: relative;
+}
+
+a.lab {
+    color:#fff;
+    font-weight:700;
+    text-decoration: none;
+    font-size: 3em;
+    justify-content:flex-start;
+    font-family: "SChakra Petch", Arial, sans-serif;
+    margin: 0;
+}
+
+a.book {
+    color:#fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 3em;
+    font-family: "Rock Salt", Arial, sans-serif;
+}
+
+
+/***********************************************
+               FORM BOX CONTAINER              
+***********************************************/
+div.form-box-container {
+    margin: -10px auto;
+    position: relative;
+
+    min-height: 450px;
+    max-height: 800px;
+    min-width: 440px;
+    max-width: 500px;
+
+    background: white;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(200px);
+    display: flex;
+    justify-content: center;
+    align-items: 4center;
+    overflow: hidden;
+    border:3px solid black;
+    transition: height .2 ease;
+}
+
+div.form-box-container .form-box {
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+div.form-box h2 {
+    font-size: 2em;
+    color:#162938;
+    text-align: center;
+}
+
+/***********************************************
+                  INPUT BOXES                
+***********************************************/
+div.input-box {
+    position: relative;
+    max-width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+div.input-box label {
+    position: absolute;
+    top: 30px;
+    left: 5px;
+    transform: translateY(-172%);
+    font-size: 1em;
+    color:#162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;    
+}
+
+div.input-box input:focus~label     {
+    top: 25px;
+}
+
+div.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border:none;
+    outline:none;
+    font-size:  1em;
+    color:  #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+    font-size: 20px;
+}
+
+div.input-box .icon {
+    position: absolute;
+    right:8px;
+    font-size: 1.2em;
+    color:#162938;
+    line-height: 57px;
+}
+
+/***********************************************
+                INPUT BOXES : Names               
+***********************************************/
+div.input-box-names {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 40px 0;
+}
+
+div.name-input-box {
+    margin: 2px;
+    width: 50%; 
+    height: 100%;
+    border-bottom: 2px solid #162938;
+    padding-left: 2px;
+}
+
+div.input-box-names input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    font-size: 20px;
+
+}
+
+label.first-name {
+    position: absolute;
+    top: 30px;
+    left: 5px;
+    transform: translateY(-172%);
+    font-size: 1em;
+    color:#162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+label.last-name {
+    position: absolute;
+    top: 30px;
+    right: 95px;
+    transform: translateY(-172%);
+    font-size: 1em;
+    color:#162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+div.input-box-names input:focus~label {
+    top: 25px;
+}
+
+div.input-box-names input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border:none;
+    outline:none;
+    font-size:  1em;
+    font-weight: 600;
+    padding: 0 35px 0 0px;
+    font-size: 20px;
+}
+
+/***********************************************
+                   BUTTONS              
+***********************************************/
+.btn {
+    color:white;
+    font-size: 20px;
+    background-color: rgb(36, 188, 36);
+    left:-1px;
+    top:160px;
+    height:50px;
+    width:308px;
+    cursor:pointer;
+}
+
+.login-register {
+    font-size: .9em;
+    color:#162938;
+    text-align: center;
+    font-weight: 500;
+    margin:25px 0 10px;
+}
