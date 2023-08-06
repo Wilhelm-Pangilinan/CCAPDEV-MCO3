@@ -26,12 +26,10 @@
             </div>
         </div>
     </div>  
-    
-    <div id = "reservations-data" reservations-data = '<%=JSON.stringify(reservationsData) %>'> </div>
 
     <script>
-        const reservations = JSON.parse(document.getElementById('reservations-data').getAttribute('reservations-data'));
+        const data = `<%- JSON.stringify(reservationsData) %>`;
+        const reservations = JSON.parse(data);
     </script>
-
 </body> 
 </html>

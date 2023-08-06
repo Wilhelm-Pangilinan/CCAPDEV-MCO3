@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 const studentSchema = new Schema({
     name: {
@@ -14,11 +15,13 @@ const studentSchema = new Schema({
     },
     id: {
         type: String,
-        required: true
+        required: true,
+        unqiue: true
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -29,6 +32,28 @@ const studentSchema = new Schema({
         ref: 'Reservation'
     }]
 })
+
+studentSchema.pre('save', async function(next) {
+    const user = this;
+    if( !user.isModified('password')) {
+        return next();
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(15);
+        const hash = await bcrypt.hash(user.password, salt);
+        user.password = hash;
+        next();
+    } catch(error) {
+        console.log(error);
+        return next(error);
+    }
+});
+
+studentSchema.method('comparePassword', async function(passwordInput) {
+    return await bcrypt.compare( passwordInput, this.password );
+});
+
 
 const Student = mongoose.model('Student', studentSchema);
 module.exports = Student;

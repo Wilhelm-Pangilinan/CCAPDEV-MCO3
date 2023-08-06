@@ -151,11 +151,11 @@ div.reservation-box div.time-box {
     opacity: 0;
  }
 
-  .first-line:hover::after {
+.first-line:hover::after {
     opacity: 1;
 }
   
-  .first-line:active::after {
+.first-line:active::after {
     opacity: 0.3;
 }
 

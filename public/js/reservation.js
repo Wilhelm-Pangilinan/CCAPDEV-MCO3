@@ -28,7 +28,7 @@ function checkTimeSlots() {
         }
     });
 
-    if (allChecked) {
+    if( allChecked ) {
         alert("All time slots are checked!");
     } else {
         alert("Some time slots are not checked!");
@@ -157,8 +157,6 @@ window.addEventListener('DOMContentLoaded', function() {
                         }
                     });
                     
-                    console.log( "TimeSlotReservation", timeSlotReservation );
-
                     if( timeSlotReservation === undefined || timeSlotReservation === null ) {
                         timeSlotBox.innerHTML = '<input type = "checkbox" name = "seat-time-' + (i * laboratory.row + j + 1) + '-' + checkTime + '">';
                         timeSlotBox.className = 'timeslot-box';

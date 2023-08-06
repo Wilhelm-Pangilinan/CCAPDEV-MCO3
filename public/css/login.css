@@ -213,6 +213,23 @@ div.input-box-names input {
 }
 
 /***********************************************
+                   ERROR BOXES              
+***********************************************/
+.error-box-container {
+    border: 2px solid rgb(209, 87, 87);
+    background-color: rgb(255, 215, 221);
+    border-radius: 5px;
+    margin: 10px;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.text-error {
+    font-size: 18px;
+    color: rgb(209, 87, 87); 
+}
+
+/***********************************************
                    BUTTONS              
 ***********************************************/
 .btn {
